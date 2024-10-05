@@ -1,0 +1,296 @@
+Task Day 3
+1.what is pojo class
+
+A POJO (Plain Old Java Object) is a simple Java object that doesn’t follow any special rules or frameworks. It’s mainly used to store data and usually includes attributes with corresponding getters and setters. While it can have some business logic, its primary purpose is just to hold information
+
+============================================================
+2.what is persistence class 
+A persistence class is a type of class used to represent objects that can be saved to and retrieved from a database. It often works with frameworks like JPA or Hibernate. The main purpose of these classes is to define how data maps to database tables, making it easier to access and manipulate that data.
+===========================================================
+3.what is diff between pojo and normal class
+POJOs are simple and focused on data representation, while normal classes can be complex and include various functionalities.
+POJOs are primarily used for data transfer and storage, whereas normal classes can be used for a broader range of purposes, including business logic implementation.
+============================================================
+4.how to make class as pojo class?
+define the class.
+make fields with private.
+make default constructor have no parametors.
+make a parameterized constructor.
+make the getter and setter.
+make the tostring method.
+===========================================================
+
+5.how to make class as persistence class?
+define a class.
+use the jpa annotation.
+make default constructor.
+make parametarized constructor.
+use @id.
+@entity,@table.
+add getter setter.
+specify table name @table.
+use @generate value
+===========================================================
+6.how to make normal class to persistance class
+normal class
+============
+public class User {
+    private Long id;
+    private String name;
+    private String email;
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+        public String getName() {
+       return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+}
+persistance class
+==================
+@Entity
+@Table(name = "users")
+public class User {
+@id
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+@column(name="name")
+    private String name;
+   private String email;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+}
+==========================================================
+
+7.how to make pojo class to persistence class?
+add annotation.
+define primary key @id.
+database mapping.
+getter setter.
+no argument constructor or constructor parametorized
+pojo
+=====
+public class Book {
+    private String title;
+    private String author;
+    private double price;
+    public Book() {}
+    // constructor
+    public Book(String title, String author, double price) {
+        this.title = title;
+        this.author = author;
+        this.price = price;
+    }
+    // Getters and Setters
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public String getAuthor() {
+        return author;
+    }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+    public double getPrice() {
+        return price;
+    }
+    public void setPrice(double price) {
+        this.price = price;
+    }
+}
+persistance
+===========
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity 
+@Table(name = "books") 
+public class Book {
+    @Id // Specifies the primary key
+    @GeneratedValue(strategy = GenerationType.Identity)
+    private Long id; // Primary key field
+    private String title;
+    private String author;
+    private double price;
+    public Book() {}
+    public Book(String title, String author, double price) {
+        this.title = title;
+        this.author = author;
+        this.price = price;
+    }
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    
+}
+
+
+
+
+=========================================================
+
+8. persietence.xml  indeatils  explanation=>
+the persistance.xml file is used for congigaration of database
+and mapping of the tables and manage entities that are found in the meta-inf folder
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+    <persistence-unit name="Mayur">  //persistance unit name 
+        <class>com.example.demo.product</class> //classes to make the table 
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>  //driver name 
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/boot"/>   //url
+            <property name="jakarta.persistence.jdbc.user" value="root"/>  //username
+            <property name="jakarta.persistence.jdbc.password" value="Mayur2"/> //password
+            <property name="jakarta.persistence.schema-generation.database.action" value="update"/>
+        </properties>
+    </persistence-unit>
+</persistence>
+
+
+
+=====================================================================================
+9.what is persisttance unit
+it found in persistance.xml file 
+The Java classes that represent the data you want to persist in the database. These classes are annotated with JPA annotations.
+like   <persistence-unit name="my">
+when time of access
+EntityManagerFactory emf = Persistence.createEntityManagerFactory("my")
+EntityManager em = emf.createEntityManager()
+A persistence unit in JPA organizes your entity classes and their database mappings, making it easier to manage data access in your application.
+...properties 
+url
+username
+password
+driver
+hibernate dialect
+ <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>  //driver name 
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/boot"/>   //url
+            <property name="jakarta.persistence.jdbc.user" value="root"/>  //username
+            <property name="jakarta.persistence.jdbc.password" value="Mayur2"/> //password
+====================================================================================
+10.what are the orm available in market ?
+hibernate
+Spring Data JPA
+Description: A part of the Spring Framework that simplifies database access using JPA. It provides repository support and reduces boilerplate code.
+ Spring ORM
+Description: A part of the Spring Framework that provides integration with various ORM frameworks, including Hibernate and JPA.
+=====================================================================================
+11.hibernate query language
+HQL is a powerful querying language that makes it easier to interact with databases through Hibernate by allowing developers to work with their domain models. Its object-oriented approach provides flexibility and abstraction from the underlying SQL, 
+try {
+    transaction = session.beginTransaction();    
+    String hql = "from User u where u.email = :email";   
+    Query query = session.createQuery(hql);
+    query.setParameter("email", "example@example.com");
+    List<User> users = query.list();  
+    transaction.commit();
+}
+=====================================================================================
+12.difference in hql and sql
+HQL: Operates on Hibernate's entity objects, allowing you to work with your domain model directly. It uses class names and properties instead of table names and column names.
+SQL: Operates directly on database tables and columns. It requires knowledge of the database schema
+HQL: Abstracts the underlying database, making it more portable across different databases. You can switch databases without modifying your HQL queries.
+SQL: Database-specific syntax and features can lead to compatibility issues when switching databases.
+HQL: Supports object-oriented relationships (like associations between entities), allowing for simpler joins based on the entity model.
+SQL: Requires explicit joins based on foreign keys and table relationships.
+=====================================================================================
+13.annotations in  JPA List with detail explationation 
+ @Entity
+mappes to the database table
+2.table
+specifyes the table name
+3.id
+shows the primary key
+4.generated value
+genereting primary key value automatically
+5.column 
+gives name or map to database column
+6.onetoone
+define one to one relatoonship in two entities
+7.onetomany
+define one to many relationship between two entities
+8.many toone
+8.manytomany
+9.@OrderBy
+ Specifies the ordering of a collection of entities in a one-to-many or many-to-many relationship.
+10.@NamedQuery
+ Defines a static query with a name that can be reused
+==============================================================================
+
+
+
+differnce between ManyToMany And ManyToAny
+A ManyToMany relationship exists when multiple instances of one entity can be associated with multiple instances of another entity.
+ex student|field
+ A ManyToAny relationship is less commonly defined but usually refers to a situation where multiple instances of one entity can relate to multiple instances of any other entity type. This can be represented through polymorphic associations or generalizations.
+ex item|category1,category2
