@@ -1,0 +1,23 @@
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.1">
+	<persistence-unit name="Ruben">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+		<!-- Add your entity classes here -->
+		<class>com.demo.persistence.Student</class>
+		<class>com.demo.persistence.Teacher</class>
+
+		<properties>
+			<property name="jakarta.persistence.jdbc.url"
+				value="jdbc:mysql://localhost:3306/task_3" />
+			<property name="jakarta.persistence.jdbc.user" value="root" />
+			<property name="jakarta.persistence.jdbc.password" value="Ruben@" />
+			<property name="jakarta.persistence.jdbc.driver"
+				value="com.mysql.cj.jdbc.Driver" />
+
+			<!-- Hibernate settings -->
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.MySQLDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+		</properties>
+	</persistence-unit>
+</persistence>
